@@ -1,15 +1,7 @@
 package com.perfree.old.service;
 
 import com.perfree.old.controller.vo.OldVersionImportReqVO;
-import com.zaxxer.hikari.HikariDataSource;
-import org.dromara.hutool.db.Entity;
-import org.dromara.hutool.db.handler.EntityListHandler;
-import org.dromara.hutool.db.sql.SqlExecutor;
 import org.springframework.stereotype.Service;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
 
 @Service
 public class ImportOldVersionService {
