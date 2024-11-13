@@ -287,8 +287,8 @@ public class ImportOldVersionService {
                 article.setSummary(summary);
             } else {
                 String cleanHtmlTag = HtmlUtil.cleanHtmlTag(article.getParseContent());
-                if (cleanHtmlTag.length() > 200){
-                    article.setSummary(cleanHtmlTag.substring(0, 200));
+                if (cleanHtmlTag.length() > 150){
+                    article.setSummary(cleanHtmlTag.substring(0, 150));
                 } else {
                     article.setSummary(cleanHtmlTag);
                 }
