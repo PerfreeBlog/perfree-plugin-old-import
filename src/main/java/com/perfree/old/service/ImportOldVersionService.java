@@ -109,7 +109,7 @@ public class ImportOldVersionService {
             comment.setTopPid(entries.getInt("topPid"));
             comment.setUserId(entries.getInt("userId"));
             comment.setStatus(entries.getInt("status"));
-            comment.setAvatar(entries.getStr("avatar"));
+            comment.setAvatar("/static/images/user-default.png");
             comment.setWebsite(entries.getStr("website"));
             comment.setUserName(entries.getStr("userName"));
             comment.setCreateTime(LocalDateTimeUtil.of(entries.getDate("createTime")));
@@ -157,7 +157,7 @@ public class ImportOldVersionService {
             user.setPassword(entries.getStr("password"));
             user.setSalt(entries.getStr("salt"));
             user.setStatus(entries.getInt("status"));
-            user.setAvatar(entries.getStr("avatar"));
+            user.setAvatar("/static/images/user-default.png");
             user.setEmail(entries.getStr("email"));
             user.setWebsite(entries.getStr("website"));
             user.setCreateTime(LocalDateTimeUtil.of(entries.getDate("createTime")));
