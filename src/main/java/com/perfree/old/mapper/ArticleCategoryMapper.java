@@ -1,8 +1,8 @@
-package com.perfree.mapper;
+package com.perfree.old.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.perfree.commons.mapper.BaseMapperX;
-import com.perfree.model.ArticleCategory;
+import com.perfree.old.model.ArticleCategory;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -15,12 +15,12 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ArticleCategoryMapper extends BaseMapperX<ArticleCategory> {
-    default void delByCategoryId(Integer id){
-        delete(new LambdaQueryWrapper<ArticleCategory>().eq(ArticleCategory::getCategoryId, id));
-    }
 
-    default void delByArticleId(Integer id){
-        delete(new LambdaQueryWrapper<ArticleCategory>().eq(ArticleCategory::getArticleId, id));
+    default ArticleCategory queryByArticleIdAndCategoryId(Integer articleId, Integer categoryId){
+        return selectOne(new LambdaQueryWrapper<ArticleCategory>()
+                .eq(ArticleCategory::getArticleId, articleId)
+                .eq(ArticleCategory::getCategoryId, categoryId)
+        );
     }
 
 }

@@ -1,10 +1,8 @@
-package com.perfree.mapper;
+package com.perfree.old.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.perfree.commons.common.PageResult;
 import com.perfree.commons.mapper.BaseMapperX;
-import com.perfree.controller.auth.role.vo.RolePageReqVO;
-import com.perfree.model.Role;
+import com.perfree.old.model.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,13 +20,11 @@ import java.util.List;
 @Mapper
 public interface RoleMapper extends BaseMapperX<Role> {
 
-    default PageResult<Role> selectPage(RolePageReqVO pageVO) {
-        return selectPage(pageVO, new LambdaQueryWrapper<Role>()
-                .like(StringUtils.isNotBlank(pageVO.getName()), Role::getName, pageVO.getName())
-                .orderByDesc(Role::getId)
+
+    default Role queryByCode(String code){
+        return selectOne(new LambdaQueryWrapper<Role>()
+                .eq(Role::getCode, code)
         );
     }
-
-    List<Role> getByUserId(@Param("userId") Integer userId);
 
 }

@@ -1,5 +1,10 @@
 <template>
     <div class="page">
+      <el-alert type="warning" :closable="false">
+        注: 只会导入分类、标签、文章、友链、附件、用户、评论等数据库数据，如数据已存在则会更新，
+        附件资源请手动将老版本根目录下resources/upload/attach目录中的内容复制到当前版本根目录resources/upload目录中,
+        以上步骤操作完毕后,如出现附件访问不到的问题,可在系统管理->附件存储策略中调整默认存储策略中的存储路径位置
+      </el-alert>
       <el-form
           ref="addFormRef"
           :model="addForm"
@@ -8,7 +13,6 @@
           :rules="addRule"
       >
         <el-form-item>
-        <el-alert type="warning" >注: 只会导入分类、标签、文章、友链数据，附件资源请手动将老版本根目录下resources/upload/attach目录中的内容复制到当前版本根目录resources/upload目录中</el-alert>
         </el-form-item>
         <el-form-item label="数据库IP" prop="dataBaseIp">
           <el-input v-model="addForm.dataBaseIp" placeholder="请输入老版本数据库IP"/>
@@ -39,6 +43,7 @@
 <script setup>
 import {reactive, ref} from "vue";
 import {oldVersionImportApi} from "@/modules/oldImport/api/oldImportApi.js";
+import {ElMessage} from "element-plus";
 
 let loading = ref(false);
 
@@ -64,7 +69,11 @@ function submitAddForm() {
     if (valid) {
       loading.value = true;
       oldVersionImportApi(addForm.value).then(res => {
-        console.log(res)
+        if (res.code ===200) {
+          ElMessage.success('导入完成');
+        } else {
+          ElMessage.success('导入失败');
+        }
         loading.value = false;
       })
     }
