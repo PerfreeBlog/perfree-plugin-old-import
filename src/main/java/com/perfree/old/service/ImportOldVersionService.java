@@ -281,7 +281,18 @@ public class ImportOldVersionService {
             article.setTitle(entries.getStr("title"));
             article.setContentModel("Vditor");
             article.setGreatCount(entries.getInt("greatCount"));
-            article.setSummary(entries.getStr("summary"));
+            String summary = entries.getStr("summary");
+            article.setParseContent(MarkdownUtil.mdToHtml(entries.getStr("content")));
+            if (StringUtils.isNotBlank(summary)) {
+                article.setSummary(summary);
+            } else {
+                String cleanHtmlTag = HtmlUtil.cleanHtmlTag(article.getParseContent());
+                if (cleanHtmlTag.length() > 200){
+                    article.setSummary(cleanHtmlTag.substring(0, 200));
+                } else {
+                    article.setSummary(cleanHtmlTag);
+                }
+            }
             article.setIsTop(entries.getInt("isTop"));
             article.setSlug(entries.getStr("slug"));
             article.setStatus(entries.getInt("status"));
@@ -292,7 +303,6 @@ public class ImportOldVersionService {
             article.setMetaDescription(entries.getStr("metaDescription"));
             article.setMetaKeywords(entries.getStr("metaKeywords"));
             article.setViewCount(entries.getInt("viewCount"));
-            article.setParseContent(MarkdownUtil.mdToHtml(entries.getStr("content")));
             article.setCreateTime(LocalDateTimeUtil.of(entries.getDate("createTime")));
             article.setCreateUserId(entries.getInt("userId"));
 
