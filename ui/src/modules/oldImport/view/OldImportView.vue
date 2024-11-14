@@ -1,9 +1,12 @@
 <template>
     <div class="page">
       <el-alert type="warning" :closable="false">
-        注: 只会导入分类、标签、文章、友链、附件、用户、评论等数据库数据，如数据已存在则会更新，
+        注: 只会导入分类、标签、文章、友链、附件、用户、评论等数据库数据，如数据已存在则会覆盖更新!，
         附件资源请手动将老版本根目录下resources/upload/attach目录中的内容复制到当前版本根目录resources/upload目录中,
         以上步骤操作完毕后,如出现附件访问不到的问题,可在系统管理->附件存储策略中调整默认存储策略中的存储路径位置
+      </el-alert>
+      <el-alert type="error" :closable="false">
+        特别注意: 该插件建议在系统刚安装完毕后使用,不建议产生数据后再进行导入, 会造成新数据丢失!!!导入完成后请进行退出登录再登录操作!!!
       </el-alert>
       <el-form
           ref="addFormRef"

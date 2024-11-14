@@ -1,5 +1,6 @@
 package com.perfree.old.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.perfree.commons.mapper.BaseMapperX;
 import com.perfree.old.model.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,5 +16,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapperX<User> {
 
+
+    default User queryByAccount(String account){
+        return selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getAccount, account)
+        );
+    }
 
 }

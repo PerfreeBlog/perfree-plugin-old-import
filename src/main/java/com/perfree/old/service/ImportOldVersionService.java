@@ -162,6 +162,14 @@ public class ImportOldVersionService {
             user.setWebsite(entries.getStr("website"));
             user.setCreateTime(LocalDateTimeUtil.of(entries.getDate("createTime")));
 
+            User queryByAccount = userMapper.queryByAccount(user.getAccount());
+            if (null != queryByAccount) {
+                if (queryByAccount.getId().equals(user.getId())) {
+                    userMapper.updateById(user);
+                    return;
+                }
+                userMapper.deleteById(queryByAccount.getId());
+            }
             User queryUser = userMapper.selectById(user.getId());
             if (null != queryUser) {
                 userMapper.updateById(user);
